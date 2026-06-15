@@ -1,3 +1,5 @@
+//These are constraints written (generated directly in vivado) on the basis of ZEDBOARD FPGA.
+
 set_property IOSTANDARD LVCMOS33 [get_ports clk]
 set_property PACKAGE_PIN Y9 [get_ports clk]
 
