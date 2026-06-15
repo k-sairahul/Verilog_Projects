@@ -1,3 +1,5 @@
+//These are constraints written (generated directly in vivado) on the basis of ZEDBOARD FPGA.
+
 set_property IOSTANDARD LVCMOS33 [get_ports {led[2]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led[1]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led[0]}]
