@@ -7,7 +7,7 @@ module detector(
 reg [7:0] count;
 reg [1:0] mode_prev;
 reg [3:0] state;
-reg match_found; // Internal flag to strobe whenever a sequence completes
+reg match_found; //Internal flag to strobe whenever a sequence completes
 
 // Moore states
 localparam s0 = 4'b0000, s1 = 4'b0001, s2 = 4'b0010, s3 = 4'b0011, s4 = 4'b0100;
@@ -24,18 +24,16 @@ always @(posedge clk or posedge rst) begin
     else mode_prev <= mode;
 end
 
-// Combinational match detection
 always @(*) begin
     match_found = 1'b0;
     if (valid) begin
         case (mode)
-            // MOORE NON-OVERLAP: Match when in s3 and din is 0
+            // MOORE
             MOORE_NONOVERLAP, MOORE_OVERLAP: begin
-                //match_found = (state == s3 && din == 1'b0);
                 match_found = (state == s4);
             end
            
-            // Mealy Look-Ahead: We are in s8 ("001") and the winning bit '0' arrives
+            // Mealy
             MELAY_NONOVERLAP, MELAY_OVERLAP: begin
                 match_found = (state == s8 && din == 1'b0);
             end
@@ -45,7 +43,7 @@ always @(*) begin
     end
 end
 
-// State Machine Logic
+// FSM
 always @(posedge clk or posedge rst) begin
     if (rst) begin
         state <= s0;
@@ -101,7 +99,7 @@ always @(posedge clk or posedge rst) begin
     end
 end
 
-// Clean Counter Logic
+// Counter Logic
 always @(posedge clk or posedge rst) begin
     if (rst) begin
         count <= 0;
