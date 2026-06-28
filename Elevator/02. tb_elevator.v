@@ -1,4 +1,3 @@
-/*
 `timescale 1ns / 1ps
 module tb_elevator;
     reg clk, rst;
@@ -17,20 +16,10 @@ elevator uut(
     .led(led)
 );
 
+initial begin  clk = 0; forever #5 clk = ~clk ; end
+    
 initial
-begin
-    clk = 0;
-end
-always
-begin
-    #5 clk = ~clk ;
-end
-
-initial
-begin
+    begin
     current_floor = 2
-end
-
-
+    end
 endmodule
-*/
