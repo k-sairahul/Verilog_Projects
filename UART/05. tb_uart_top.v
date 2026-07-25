@@ -1,20 +1,16 @@
 `timescale 1ns / 1ps
 
 module tb_uart_top();
-
-    // 1. Declare variables to hook up to the module
     reg clk;
     reg rst;
     reg tx_start;
     reg [7:0] data_in;
     reg rx;
-
     wire tx;
     wire tx_done;
     wire [7:0] data_out;
     wire rx_done;
 
-    // 2. Instantiate the "Box" (uart_top)
     uart_top uut (
         .clk(clk),
         .rst(rst),
@@ -27,29 +23,25 @@ module tb_uart_top();
         .rx_done(rx_done)
     );
 
-    // 3. THE LOOPBACK HACK: Connect TX directly to RX
+    //THE LOOPBACK HACK: Connect TX directly to RX
     always @(*) begin
         rx = tx;
     end
 
-    // 4. Generate a 100MHz Clock (10ns period -> flip every 5ns)
+    // 100MHz Clock
     always #5 clk = ~clk;
 
-    // 5. Run the Test
     initial begin
-        // --- Initialization ---
         clk = 0;
-        rst = 1;         // Hold system in reset
+        rst = 1;  
         tx_start = 0;
         data_in = 0;
 
-        #100;            // Wait 100ns
+        #100;         
         rst = 0;         // Release reset
-        #100;            // Wait a bit for the system to stabilize
+        #100;     
 
-        // ===============================================
         // TEST CASE 1: Send the character 'A' (Hex: 8'h41)
-        // ===============================================
         $display("Starting Test Case 1...");
         data_in = 8'h41; 
         tx_start = 1;    // Pulse the start button
@@ -68,10 +60,8 @@ module tb_uart_top();
             $display("ERROR: Data mismatch. Received: %h", data_out);
 
         #5000; // Wait a bit before sending the next byte
-
-        // ===============================================
+        
         // TEST CASE 2: Send the character 'Z' (Hex: 8'h5A)
-        // ===============================================
         $display("Starting Test Case 2...");
         data_in = 8'h5A; 
         tx_start = 1;
@@ -85,10 +75,9 @@ module tb_uart_top();
         else
             $display("ERROR: Data mismatch. Received: %h", data_out);
 
-        // --- End Simulation ---
         #1000;
         $display("Simulation Complete.");
-        $finish; // Stop the testbench
+        $finish;
     end
       
 endmodule
