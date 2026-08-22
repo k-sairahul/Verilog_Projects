@@ -30,7 +30,7 @@ fft4tap dut(
     .m_axis_data_tready(m_axis_data_tready)
 );
 
-initial begin $dumpfile("new_wave.vcd");  $dumpvars(0); end
+initial begin $dumpfile("wave.vcd");  $dumpvars(0); end
 initial begin clk = 0; forever #5 clk = ~clk; end
 
 //Stimulus
