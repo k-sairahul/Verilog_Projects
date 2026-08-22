@@ -6,10 +6,7 @@
   );
 
   //Butterfly Coefficients, just for reference, didnt used anywhere directly
-  localparam W40r = 1,
-              W40i = 0,
-              W41r = 0,
-              W41i = -1;
+  localparam W40r = 1, W40i = 0, W41r = 0, W41i = -1;
 
   wire signed [16:0] w1r,w1i,w2r,w2i,w3r,w3i,w4r,w4i; // Stage 1 to Stage 2 connections
   wire signed [16:0] w3r1,w3i1,w4r2,w4i2;
